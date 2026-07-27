@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Text } from '@react-three/drei';
 import * as THREE from 'three';
+import { CanvasLabel } from './CanvasLabel';
 
 interface NumberTowerProps {
   numbers: { label: string; value: number; master?: boolean }[];
@@ -62,12 +62,8 @@ function NumberBlock({
           emissiveIntensity={dimmed ? 0.05 : selected ? 0.8 : 0.25}
         />
       </mesh>
-      <Text position={[0, 0, 0.7]} fontSize={0.55} color="#ffffff" anchorX="center" anchorY="middle" fillOpacity={dimmed ? 0.3 : 1}>
-        {String(value)}
-      </Text>
-      <Text position={[0, -0.95, 0]} fontSize={0.18} color="#a5b4fc" anchorX="center" anchorY="middle" fillOpacity={dimmed ? 0.3 : 0.9}>
-        {label}
-      </Text>
+      <CanvasLabel text={String(value)} position={[0, 0, 0.7]} size={0.55} color="#ffffff" opacity={dimmed ? 0.3 : 1} />
+      <CanvasLabel text={label} position={[0, -0.95, 0]} size={0.18} color="#a5b4fc" opacity={dimmed ? 0.3 : 0.9} />
     </group>
   );
 }

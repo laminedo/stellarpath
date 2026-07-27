@@ -1,7 +1,8 @@
 import { useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Text, Line } from '@react-three/drei';
+import { Line } from '@react-three/drei';
 import * as THREE from 'three';
+import { CanvasLabel } from './CanvasLabel';
 
 interface ConstellationProps {
   score: number; // 1-99; closer orbs = higher score
@@ -39,9 +40,7 @@ function PersonOrb({ position, color, name }: { position: [number, number, numbe
           </mesh>
         ))}
       </group>
-      <Text position={[0, 0.95, 0]} fontSize={0.28} color="#ffffff" anchorX="center" anchorY="middle">
-        {name}
-      </Text>
+      <CanvasLabel text={name} position={[0, 0.95, 0]} size={0.28} color="#ffffff" />
     </group>
   );
 }

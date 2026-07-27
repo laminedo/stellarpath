@@ -1,7 +1,7 @@
 import { useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Text } from '@react-three/drei';
 import * as THREE from 'three';
+import { CanvasLabel } from './CanvasLabel';
 import type { ZodiacSign } from '../../engines/stellarpath-engines';
 import { ZODIAC_SYMBOLS } from '../../utils/helpers';
 
@@ -70,15 +70,12 @@ function Wheel({ selectedSign }: WheelProps) {
             {selected && (
               <pointLight color={color} intensity={4} distance={5} />
             )}
-            <Text
+            <CanvasLabel
+              text={ZODIAC_SYMBOLS[sign]}
               position={[0, 0.55, 0]}
-              fontSize={selected ? 0.42 : 0.3}
+              size={selected ? 0.42 : 0.3}
               color={selected ? '#ffffff' : color}
-              anchorX="center"
-              anchorY="middle"
-            >
-              {ZODIAC_SYMBOLS[sign]}
-            </Text>
+            />
           </group>
         );
       })}
