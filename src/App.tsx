@@ -1,5 +1,4 @@
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
 import { ProfileProvider } from './context/ProfileContext';
 import { Starfield } from './components/three/Starfield';
 import { Navbar } from './components/layout/Navbar';
@@ -15,16 +14,14 @@ import { ProfilePage } from './components/pages/ProfilePage';
 function AnimatedRoutes() {
   const location = useLocation();
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><Dashboard /></PageTransition>} />
-        <Route path="/numerology" element={<PageTransition><NumerologyPage /></PageTransition>} />
-        <Route path="/astrology" element={<PageTransition><AstrologyPage /></PageTransition>} />
-        <Route path="/calendar" element={<PageTransition><CalendarPage /></PageTransition>} />
-        <Route path="/compatibility" element={<PageTransition><CompatibilityPage /></PageTransition>} />
-        <Route path="/profile" element={<PageTransition><ProfilePage /></PageTransition>} />
-      </Routes>
-    </AnimatePresence>
+    <Routes location={location} key={location.pathname}>
+      <Route path="/" element={<PageTransition><Dashboard /></PageTransition>} />
+      <Route path="/numerology" element={<PageTransition><NumerologyPage /></PageTransition>} />
+      <Route path="/astrology" element={<PageTransition><AstrologyPage /></PageTransition>} />
+      <Route path="/calendar" element={<PageTransition><CalendarPage /></PageTransition>} />
+      <Route path="/compatibility" element={<PageTransition><CompatibilityPage /></PageTransition>} />
+      <Route path="/profile" element={<PageTransition><ProfilePage /></PageTransition>} />
+    </Routes>
   );
 }
 

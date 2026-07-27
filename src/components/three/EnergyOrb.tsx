@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Environment } from '@react-three/drei';
+import { Float } from '@react-three/drei';
 import * as THREE from 'three';
 
 interface OrbProps {
@@ -54,9 +54,10 @@ export function EnergyOrb({ score, color, biorhythmPhase }: OrbProps) {
   return (
     <div className="h-64 w-full md:h-80" aria-hidden="true">
       <Canvas camera={{ position: [0, 0, 5.5], fov: 45 }} dpr={[1, 2]} frameloop="always">
-        <ambientLight intensity={0.3} />
+        <ambientLight intensity={0.6} />
+        <directionalLight position={[4, 4, 6]} intensity={1.4} />
+        <directionalLight position={[-4, -2, -4]} intensity={0.5} color="#8b5cf6" />
         <Orb score={score} color={color} biorhythmPhase={biorhythmPhase} />
-        <Environment preset="city" />
       </Canvas>
     </div>
   );
