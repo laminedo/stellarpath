@@ -1,0 +1,14 @@
+{
+  "1": { "title": "The Leader", "keywords": ["Independence", "Initiation", "Originality"], "description": "Life Path 1 represents the pioneer. You are driven to lead, innovate, and stand apart from the crowd." },
+  "2": { "title": "The Diplomat", "keywords": ["Cooperation", "Sensitivity", "Balance"], "description": "Life Path 2 is the peacemaker. You excel in partnership, mediation, and creating harmony." },
+  "3": { "title": "The Communicator", "keywords": ["Creativity", "Expression", "Optimism"], "description": "Life Path 3 thrives in self-expression. Art, writing, and performance are your natural domains." },
+  "4": { "title": "The Builder", "keywords": ["Stability", "Discipline", "Practicality"], "description": "Life Path 4 creates solid foundations. You are methodical, reliable, and committed to mastery." },
+  "5": { "title": "The Adventurer", "keywords": ["Freedom", "Adaptability", "Curiosity"], "description": "Life Path 5 craves variety and experience. Change is your fuel, and routine is your enemy." },
+  "6": { "title": "The Nurturer", "keywords": ["Responsibility", "Service", "Compassion"], "description": "Life Path 6 is the caregiver. Family, community, and healing are central to your purpose." },
+  "7": { "title": "The Seeker", "keywords": ["Analysis", "Spirituality", "Introspection"], "description": "Life Path 7 pursues truth and wisdom. You are drawn to the mysteries beneath the surface." },
+  "8": { "title": "The Powerhouse", "keywords": ["Authority", "Ambition", "Material Success"], "description": "Life Path 8 masters the material world. You are built for leadership, business, and achievement." },
+  "9": { "title": "The Humanitarian", "keywords": ["Compassion", "Completion", "Universal Love"], "description": "Life Path 9 serves the greater good. You are here to give, heal, and elevate consciousness." },
+  "11": { "title": "The Illuminator", "keywords": ["Intuition", "Inspiration", "Spiritual Insight"], "description": "Master Number 11 carries high spiritual voltage. You are a channel for inspiration and awakening." },
+  "22": { "title": "The Master Builder", "keywords": ["Vision", "Practical Manifestation", "Legacy"], "description": "Master Number 22 combines vision with execution. You are meant to build something that outlasts you." },
+  "33": { "title": "The Master Teacher", "keywords": ["Compassion", "Guidance", "Universal Service"], "description": "Master Number 33 elevates love to its highest form. You are here to teach through unconditional care." }
+}
