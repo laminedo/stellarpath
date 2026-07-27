@@ -1,0 +1,14 @@
+{
+  "name": "StellarPath — Numerology & Astrology",
+  "short_name": "StellarPath",
+  "description": "Immersive 3D numerology and astrology insights, fully client-side.",
+  "start_url": "/stellarpath/",
+  "scope": "/stellarpath/",
+  "display": "standalone",
+  "background_color": "#0a0a1a",
+  "theme_color": "#0a0a1a",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
