@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useProfiles } from '../../context/ProfileContext';
-import { calculateWesternAstro, calculateChineseZodiac } from '../../engines/stellarpath-engines';
+import { calculateWesternAstro, calculateChineseZodiac, parseLocalDate } from '../../engines/stellarpath-engines';
 import zodiacData from '../../data/zodiac-signs.json';
 import chineseData from '../../data/chinese-zodiac.json';
 import { ZodiacWheel } from '../three/ZodiacWheel';
@@ -19,7 +19,7 @@ export function AstrologyPage() {
 
   const data = useMemo(() => {
     if (!activeProfile) return null;
-    const birth = new Date(activeProfile.birthDate);
+    const birth = parseLocalDate(activeProfile.birthDate);
     return {
       western: calculateWesternAstro(activeProfile),
       chinese: calculateChineseZodiac(birth),

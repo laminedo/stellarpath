@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Trash2, Check, UserPlus } from 'lucide-react';
 import { useProfiles } from '../../context/ProfileContext';
 import type { BirthData } from '../../engines/stellarpath-engines';
-import { getSunSign, getMoonSign } from '../../engines/stellarpath-engines';
+import { getSunSign, getMoonSign, parseLocalDate } from '../../engines/stellarpath-engines';
 import { GlassCard } from '../ui/GlassCard';
 import { GlowButton } from '../ui/GlowButton';
 import { ZODIAC_SYMBOLS, initials } from '../../utils/helpers';
@@ -99,8 +99,8 @@ export function ProfilePage() {
             </GlassCard>
           )}
           {profiles.map((p, i) => {
-            const sun = getSunSign(new Date(p.birthDate)).sign;
-            const moon = getMoonSign(new Date(p.birthDate), p.birthTime).sign;
+            const sun = getSunSign(parseLocalDate(p.birthDate)).sign;
+            const moon = getMoonSign(parseLocalDate(p.birthDate), p.birthTime).sign;
             const active = isActive(p);
             return (
               <GlassCard key={`${p.name}-${p.birthDate}-${i}`} className={cn('flex items-center gap-4 p-4', active && 'border-gold-400/50')} hover={false}>

@@ -152,11 +152,21 @@ function daysBetween(a: Date, b: Date): number {
   return Math.floor((b.getTime() - a.getTime()) / msPerDay);
 }
 
+/**
+ * Parse an ISO date (YYYY-MM-DD) as a LOCAL calendar date.
+ * `new Date("YYYY-MM-DD")` parses as UTC midnight, which shifts the day
+ * back by one in timezones behind UTC — wrong Life Path, signs, biorhythms.
+ */
+export function parseLocalDate(iso: string): Date {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(y, (m || 1) - 1, d || 1);
+}
+
 // ------------------------------------------------------------------
 // NUMEROLOGY ENGINE
 // ------------------------------------------------------------------
 export function calculateNumerology(data: BirthData, referenceDate?: Date): NumerologyProfile {
-  const birth = new Date(data.birthDate);
+  const birth = parseLocalDate(data.birthDate);
   const today = referenceDate || new Date();
 
   const dateDigits = `${birth.getFullYear()}${String(birth.getMonth() + 1).padStart(2, '0')}${String(birth.getDate()).padStart(2, '0')}`;
@@ -211,7 +221,9 @@ export function getSunSign(date: Date): { sign: ZodiacSign; degree: number } {
   const month = date.getMonth();
   const day = date.getDate();
   const cutoff = SUN_SIGN_CUTOFFS[month];
-  const signIndex = day < cutoff ? (month + 11) % 12 : month;
+  // Signs run ~21st→20th: from the cutoff date the sign is (month+10)%12,
+  // before it the previous sign (month+9)%12. E.g. March 21+ = Aries (0).
+  const signIndex = day < cutoff ? (month + 9) % 12 : (month + 10) % 12;
   const sign = ZODIAC_SIGNS[signIndex];
   const daysInSign = day < cutoff
     ? day + (30 - SUN_SIGN_CUTOFFS[(month + 11) % 12])
@@ -263,7 +275,7 @@ export function getRisingSign(date: Date, birthTime: string, timezoneOffsetHours
 }
 
 export function calculateWesternAstro(data: BirthData): WesternAstroProfile {
-  const birth = new Date(data.birthDate);
+  const birth = parseLocalDate(data.birthDate);
   const sun = getSunSign(birth);
   const moon = getMoonSign(birth, data.birthTime);
 
@@ -296,10 +308,12 @@ export function calculateChineseZodiac(date: Date): ChineseZodiacProfile {
     (month === lunarNewYearApprox.getMonth() + 1 && day < lunarNewYearApprox.getDate()))
     ? year - 1 : year;
 
-  const animalIndex = (effectiveYear - 1900) % 12;
+  // Sexagenary cycle is anchored at year 4 AD = Jia-Zi (Wood Rat, index 0).
+  // E.g. 1986: stem (1986-4)%10 = 2 → Bing (Fire), branch (1986-4)%12 = 2 → Yin (Tiger).
+  const stemIndex = (((effectiveYear - 4) % 10) + 10) % 10;
+  const animalIndex = (((effectiveYear - 4) % 12) + 12) % 12;
   const animal = CHINESE_ANIMALS[animalIndex];
 
-  const stemIndex = (effectiveYear - 1900) % 10;
   const element = CHINESE_ELEMENTS_CYCLE[stemIndex];
   const yinYang = CHINESE_YIN_YANG[stemIndex] as 'Yin' | 'Yang';
 
@@ -314,7 +328,7 @@ export function calculateChineseZodiac(date: Date): ChineseZodiacProfile {
 // BIORHYTHM ENGINE
 // ------------------------------------------------------------------
 export function calculateBiorhythms(birthDate: string, targetDate?: Date): BiorhythmData {
-  const birth = new Date(birthDate);
+  const birth = parseLocalDate(birthDate);
   const target = targetDate || new Date();
   const days = daysBetween(birth, target);
 
@@ -388,8 +402,8 @@ const NUMEROLOGY_COMPAT: Record<number, Record<number, number>> = {
 };
 
 export function calculateCompatibility(a: BirthData, b: BirthData): CompatibilityResult {
-  const birthA = new Date(a.birthDate);
-  const birthB = new Date(b.birthDate);
+  const birthA = parseLocalDate(a.birthDate);
+  const birthB = parseLocalDate(b.birthDate);
 
   const sunA = getSunSign(birthA).sign;
   const sunB = getSunSign(birthB).sign;

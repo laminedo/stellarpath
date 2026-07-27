@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useProfiles } from '../../context/ProfileContext';
 import { useEnergyForecast } from '../../hooks/useEnergyForecast';
-import { calculateNumerology, calculateWesternAstro, calculateChineseZodiac } from '../../engines/stellarpath-engines';
+import { calculateNumerology, calculateWesternAstro, calculateChineseZodiac, parseLocalDate } from '../../engines/stellarpath-engines';
 import { GlassCard } from '../ui/GlassCard';
 import { GlowButton } from '../ui/GlowButton';
 import { NumberCounter } from '../ui/NumberCounter';
@@ -38,7 +38,7 @@ export function Dashboard() {
 
   const derived = useMemo(() => {
     if (!activeProfile) return null;
-    const birth = new Date(activeProfile.birthDate);
+    const birth = parseLocalDate(activeProfile.birthDate);
     return {
       numerology: calculateNumerology(activeProfile),
       western: calculateWesternAstro(activeProfile),
