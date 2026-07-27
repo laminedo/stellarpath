@@ -1,0 +1,61 @@
+# GitHub Pages deploy workflow
+# -------------------------------------------------
+# GitHub requires the special "workflow" OAuth scope to commit files
+# under .github/workflows/ via the API, so this file is staged here.
+#
+# TO ACTIVATE DEPLOYMENT (one-time, 30 seconds):
+#   1. In the GitHub web UI, move this file to: .github/workflows/deploy.yml
+#      (edit filename in place — click the file, then the pencil icon, and
+#       change the path at the top to .github/workflows/deploy.yml)
+#   2. Go to Settings -> Pages -> Source and select "GitHub Actions".
+#   3. The workflow runs on every push to main; the site will be live at
+#      https://laminedo.github.io/stellarpath/
+# -------------------------------------------------
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
